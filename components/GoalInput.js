@@ -1,13 +1,49 @@
-import React from 'react';
-import { StyleSheet, View, Button, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import { Button, Text, Input, Modal, Card, ButtonGroup } from '@ui-kitten/components';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export const GoalInput = ({ value, onChangeText, onAddGoal}) => {
+
+
+export const GoalInput = ({ value, onChangeText, onAddGoal }) => {
+  const [visible, setVisible] = useState(false);
+
+  const addToGoalsList = () => {
+    onAddGoal()
+    setVisible(false);
+  }
 
   return (
-      <View style={styles.container}>
-      <TextInput placeholder="Course Goal" style={styles.input} onChangeText={onChangeText} value={value} />
-      <Button title="ADD" onPress={onAddGoal} />
-      </View>
+    <>
+
+      <Button onPress={() => setVisible(!visible)}>
+        ADD GOALS
+      </Button>
+
+
+      <Modal
+        visible={visible}
+        backdropStyle={styles.backdrop}
+        onBackdropPress={() => setVisible(false)}>
+        <View style={styles.inputContainer}>
+          <Card >
+            <Input
+              placeholder='Course Goal'
+              value={value}
+              onChangeText={onChangeText}
+              multiline={true}
+              style={styles.input}
+            />
+
+            <Button style={styles.button} onPress={addToGoalsList} >
+              {evaProps => <Text {...evaProps}> ADD TO GOALS LIST </Text>}
+            </Button>
+          </Card>
+        </View>
+
+      </Modal>
+
+    </>
   )
 }
 
@@ -17,10 +53,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
+  inputContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   input: {
-    borderColor: 'black',
-    borderWidth: 1,
     padding: 10,
-    width: '80%',
-  }
+    width: '100%',
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  button: {
+    width: '100%',
+  },
 });
