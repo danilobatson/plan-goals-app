@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
-import { Button, Text, Input, Modal, Card, ButtonGroup } from '@ui-kitten/components';
+import { Button, Text, Input, Modal, Card, Divider, Layout } from '@ui-kitten/components';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
@@ -25,8 +25,8 @@ export const GoalInput = ({ value, onChangeText, onAddGoal }) => {
         visible={visible}
         backdropStyle={styles.backdrop}
         onBackdropPress={() => setVisible(false)}>
-        <View style={styles.inputContainer}>
-          <Card >
+        <Layout style={styles.inputContainer}>
+          <Card appearance='filled'>
             <Input
               placeholder='Course Goal'
               value={value}
@@ -34,12 +34,22 @@ export const GoalInput = ({ value, onChangeText, onAddGoal }) => {
               multiline={true}
               style={styles.input}
             />
+            <Divider />
+            <Layout style={styles.button}
+            >
+              <Button onPress={() => setVisible(false)} status='danger' >
+                {evaProps => <Text {...evaProps}> CANCEL </Text>}
+              </Button>
+            </Layout >
 
-            <Button style={styles.button} onPress={addToGoalsList} >
-              {evaProps => <Text {...evaProps}> ADD TO GOALS LIST </Text>}
-            </Button>
+            <Layout style={styles.button}
+            >
+              <Button onPress={addToGoalsList} status='success'>
+                {evaProps => <Text {...evaProps}> ADD TO GOALS LIST </Text>}
+              </Button>
+            </Layout>
           </Card>
-        </View>
+        </Layout>
 
       </Modal>
 
@@ -66,6 +76,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
+    padding: '2.5%',
     width: '100%',
-  },
+  }
+
 });

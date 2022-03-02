@@ -10,10 +10,18 @@ export default function App() {
   const [courseGoals, setCourseGoals] = useState([])
 
   const goalInputHandler = (enteredText) => {
+    if (!enteredText) {
+      return
+    }
     setEnteredGoal(enteredText)
   }
 
+
   const addGoalHandler = () => {
+    if (!enteredGoal) {
+      alert('No Goal Entered')
+      return
+    }
     setCourseGoals(currentGoals =>
       [...currentGoals,
         { id: Math.random().toString(), value: enteredGoal }])
