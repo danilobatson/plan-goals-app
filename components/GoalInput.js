@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Button, TextInput} from 'react-native';
 
-export const GoalInput = ({value, onChangeText, onPress}) => {
+export const GoalInput = ({ value, onChangeText, onAddGoal}) => {
 
   return (
       <View style={styles.container}>
       <TextInput placeholder="Course Goal" style={styles.input} onChangeText={onChangeText} value={value} />
-      <Button title="ADD" onPress={onPress} />
+      <Button title="ADD" onPress={onAddGoal} />
       </View>
   )
 }
